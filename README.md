@@ -1,38 +1,36 @@
 # final-project
+
 import pandas as pd
 
 inventory_data = {
-    'item_name': ['Rudy Sword', 'Health Potion', 'Diamond Pickaxe', 'Cake', 'Emerald Shield'],
-    'category': ['weapon', 'consumable', 'tool', 'food', 'armor'],
-    'base_cost': [150.0, 50.0, 80.0, 5.0, 45.0],
-    'quantity': [5, 20, 10, 50, 8]
+    'item_name': ['Iron Sword', 'Health Potion', 'Steel Pickaxe', 'Loaf of Bread', 'Wooden Shield'],
+    'category': ['Weapon', 'Consumable', 'Tool', 'Consumable', 'Weapon'],
+    'price': [50, 10, 35, 5, 20],
+    'quantity': [5, 20, 10, 15, 8]
 }
-
-inventory_df = pd.DataFrame(inventory_data)
-
-inventory_df.set_index('item_name', inplace=True)
-
-print(inventory_df)
+df_inventory = pd.DataFrame(inventory_data)
+categories = df_inventory['category'].unique().tolist()
 
 class Customer:
     def __init__(self, name):
-        categories = ['Electronics', 'Books', 'Home & Garden', 'Fashion', 'Toys']
         self.name = name
-        # Initialize budget (random int between 50 and 500)
-        self.budget = random.randint(50, 500)
-        # Initialize preference (random choice from categories)
+        # Budget between 20 and 100 gold
+        self.budget = random.randint(20, 100) 
+        # Pick a favorite category from our inventory
         self.preference = random.choice(categories)
-        # Initialize loyalty_score (start at 1.0)
-        self.loyalty_score = 1.0 
+        # Everyone starts neutral
+        self.loyalty_score = 1.0
 
-names = ['Alex', 'Jade', 'Hunter', 'Levi', 'Rose']
-customers = [Customer(name) for name in names]def process_transaction(customer, item_name, proposed_price, inventory_df):
-    if item_name not in inventory_df.index or inventory_df.at[item_name, 'quantity'] <= 0:
-        customer.loyalty_score -= 1
-        return "Out of stock"
-    if proposed_price <= customer.max_bid:
-        inventory_df.at[item_name, 'quantity'] -= 1
-        customer.loyalty_score += 5
-        return True
-    customer.loyalty_score -= 2
-    return False
+    def __repr__(self):
+        return f"[{self.name} | Budget: {self.budget}g | Pref: {self.preference} | Loyalty: {self.loyalty_score}]"
+
+names = ["Aric", "Bera", "Cid", "Dara", "Elowen"]
+customers = [Customer(name) for name in names]
+
+print("--- Active Customers ---")
+for c in customers:
+    print(c)
+
+    # TODO: Use results_df and inventory_df to calculate the 10 metrics
+# Example: total_revenue = results_df[results_df['success'] == True]['price'].sum()
+# --- PRINT YOUR FINAL REPORT ---
